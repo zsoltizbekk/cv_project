@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/cv_project/static/css/main.1e9fee86.css",
+    "main.js": "/cv_project/static/js/main.8299435e.js",
+    "static/media/font_bold.ttf": "/cv_project/static/media/font_bold.ca168dbe270fba68a7f3.ttf",
+    "static/media/font_regular.ttf": "/cv_project/static/media/font_regular.a51441e972d57b28e7c1.ttf",
+    "static/media/font_light.ttf": "/cv_project/static/media/font_light.3ba02bbdeb04e17f34bf.ttf",
+    "static/media/font_thin.ttf": "/cv_project/static/media/font_thin.5ab5aa2588185da4dace.ttf",
+    "static/media/github.png": "/cv_project/static/media/github.41bf98757324c33fba78.png",
+    "index.html": "/cv_project/index.html",
+    "main.1e9fee86.css.map": "/cv_project/static/css/main.1e9fee86.css.map",
+    "main.8299435e.js.map": "/cv_project/static/js/main.8299435e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1e9fee86.css",
+    "static/js/main.8299435e.js"
+  ]
+}
