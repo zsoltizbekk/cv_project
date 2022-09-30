@@ -1,0 +1,608 @@
+@font-face {
+  font-family: "myfont_thin";
+  src: url("../assets/font_thin.ttf");
+}
+
+@font-face {
+  font-family: "myfont_light";
+  src: url("../assets/font_light.ttf");
+}
+@font-face {
+  font-family: "myfont_regular";
+  src: url("../assets/font_regular.ttf");
+}
+
+@font-face {
+  font-family: "myfont_bold";
+  src: url("../assets/font_bold.ttf");
+}
+
+:root {
+  --imgsize: 200px;
+}
+
+* {
+  font-family: myfont_thin, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+body {
+  margin: 0;
+  background-color: #faf3e3;
+}
+
+.container {
+  width: 100vw;
+}
+.header {
+  height: 40px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0px;
+  margin: auto;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: #1a4d2e 3px solid;
+  background-color: #faf3e3;
+}
+
+.header > h1 {
+  margin: 8px;
+  margin-top: 0px;
+  font-family: myfont_bold, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 40px;
+  color: #1a4d2e;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 40px;
+  width: 100%;
+  max-width: 800px;
+  border-top: #1a4d2e 3px solid;
+  background-color: #faf3e3;
+  margin: auto;
+}
+
+.body {
+  width: 100%;
+  max-width: 800px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-bottom: 70px;
+}
+
+.left {
+  width: 25vw;
+  min-width: 270px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.right {
+  width: 75vw;
+  min-width: 350px;
+}
+
+.cvTop {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.cvTopLeft {
+  width: 25vw;
+  min-width: 270px;
+  background-color: #ff9f29;
+}
+
+.cvTopRight {
+  width: 75vw;
+}
+
+.cvBot {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  max-width: 800px;
+  margin: 0;
+  margin: auto;
+  margin-bottom: 50px;
+  padding-right: 14px;
+}
+
+.cvBotLeft {
+  width: 25vw;
+  min-width: 270px;
+}
+
+.cvBotRight {
+  width: 75vw;
+  background-color: #ff9f29;
+}
+
+.firstName,
+.lastName {
+  display: flex;
+  flex-direction: row;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  max-width: var(--imgsize);
+  max-height: var(--imgsize);
+  min-height: var(--imgsize);
+  min-width: var(--imgsize);
+}
+
+h1 {
+  font-family: myfont_regular, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 35px;
+  margin: 2px;
+  color: #1a4d2e;
+}
+h2 {
+  font-family: myfont_regular, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 25px;
+  margin: 0px;
+  color: #1a4d2e;
+}
+
+h3 {
+  font-family: myfont_thin, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+.h1input {
+  font-family: myfont_regular, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 35px;
+  max-width: 230px;
+  background-color: #faf3e3;
+  color: #1a4d2e;
+  margin: 0px;
+  padding: 0px;
+  border: #ff9f29 solid 2px;
+  border-radius: 5px;
+}
+
+.h2input {
+  font-family: myfont_regular, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 25px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.h3input {
+  font-family: myfont_thin, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  height: 24px;
+  background-color: #faf3e3;
+  border: #ff9f29 solid 1px;
+  border-radius: 5px;
+  margin: 3px;
+
+  width: 170px;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.h2Underline {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: #ff9f29 solid 2px;
+}
+
+.nameSegment {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.h1EditLogo {
+  height: 25px;
+  width: 25px;
+}
+
+.h1SubmitLogo {
+  height: 30px;
+  width: 30px;
+}
+
+.h2EditLogo {
+  height: 25px;
+  width: 25px;
+}
+
+.h3EditLogo {
+  height: 20px;
+  width: 20px;
+}
+
+.h3SubmitLogo {
+  height: 25px;
+  width: 25px;
+}
+
+.h2Left {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-bottom: #ff9f29 solid 2px;
+  margin-right: 25px;
+}
+
+.lastName > button,
+.firstName > button {
+  animation-name: fadein;
+  animation-duration: 1s;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.photoDiv {
+  height: var(--imgsize);
+  position: relative;
+}
+
+.photoInput {
+  display: flex;
+  align-items: center;
+  background-color: rgba(78, 67, 73, 0.46);
+  border-radius: 50%;
+  height: var(--imgsize);
+  width: var(--imgsize);
+  position: absolute;
+  z-index: 9;
+  top: 0px;
+  left: 0px;
+}
+
+.photoInput > input {
+  animation-name: fadein;
+  animation-duration: 1s;
+  justify-self: center;
+  width: 80%;
+  margin-left: 10%;
+  color: white;
+  border: none;
+  height: 42px;
+  background-color: rgba(78, 67, 73, 0.832);
+}
+
+.photoInput > button {
+  align-self: flex-start;
+  height: 42px;
+  animation-name: fadein;
+  animation-duration: 1s;
+  cursor: poiner;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  z-index: 9;
+  top: 0px;
+  right: 0px;
+}
+
+.pictureAndButton {
+  width: var(--imgsize);
+  position: relative;
+}
+
+.pictureAndButton > button {
+  animation-name: fadein;
+  animation-duration: 1s;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  z-index: 9;
+  top: 0px;
+  right: 0px;
+}
+
+.addressDiv,
+.phoneDiv,
+.emailDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.addressEditableDiv,
+.phoneEditableDiv,
+.emailEditableDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.addressEditableDiv > button,
+.phoneEditableDiv > button,
+.emailEditableDiv > button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.addressEditDiv,
+.phoneEditDiv,
+.emailEditDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.addressEditDiv > input,
+.phoneEditDiv > input,
+.emailEditDiv > input {
+  width: 170px;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.addressEditDiv > button,
+.phoneEditDiv > button,
+.emailEditDiv > button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.deleteLanguageBtn,
+.addNewLanguageBtn {
+  cursor: pointer;
+  animation-name: fadein;
+  animation-duration: 1s;
+  background-color: transparent;
+  border: none;
+}
+
+.langAddBtn {
+  cursor: pointer;
+  color: #1a4d2e;
+  border: #ff9f29 solid 1px;
+  background-color: transparent;
+  border-radius: 5px;
+  margin-left: 3px;
+  width: 175px;
+  animation-name: fadein;
+  animation-duration: 1s;
+  animation-name: colorchangeback;
+  animation-duration: 1s;
+}
+
+.langAddBtn:hover {
+  animation-name: colorchange;
+  animation-duration: 1s;
+  background-color: #ff9f29;
+  color: #1a4d2e;
+}
+
+@keyframes colorchange {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #ff9f29;
+  }
+}
+
+@keyframes colorchangeback {
+  from {
+    background-color: #ff9f29;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.addNewLanguageInputDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+.addNewLanguageInputDiv > h3 {
+  margin: 0px;
+}
+
+.addNewLanguageInputDiv > input:last-child {
+  margin-bottom: 0px;
+}
+
+.addNewLanguageInputDiv > button {
+  font-size: 20px;
+}
+
+.displayedLanguage {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.summaryInput {
+  width: calc(100% - 10px);
+  height: 100px;
+}
+
+.titleEditBtn {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.titleEditBtnDiv {
+  margin-top: 2px;
+  animation-name: fadein;
+  animation-duration: 1s;
+  align-items: center;
+}
+
+.summaryTitleDiv,
+.skillTitleDiv,
+.experienceTitleDiv,
+.educationTitleDiv,
+.certificationTitleDiv {
+  display: flex;
+  flex-direction: row;
+  height: 25px;
+}
+
+.deleteSkillBtn,
+.addNewSkillBtn {
+  cursor: pointer;
+  animation-name: fadein;
+  animation-duration: 1s;
+  background-color: transparent;
+  border: none;
+}
+
+.deleteSkillBtn {
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+li {
+  font-family: myfont_thin, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+.skillAddBtn {
+  font-size: 20px;
+  margin-left: 5px;
+  border: #ff9f29 solid 1px;
+  background-color: transparent;
+  border-radius: 5px;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.experienceListDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.experienceInputFieldDiv,
+.educationInputFieldDiv,
+.certificationInputFieldDiv {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+}
+
+.deleteExpBtn,
+.deleteEduBtn,
+.deleteCertBtn {
+  align-self: flex-start;
+  cursor: pointer;
+  animation-name: fadein;
+  animation-duration: 1s;
+  background-color: transparent;
+  border: none;
+}
+
+.expInputListDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+.expTaskInput {
+  width: 120px;
+}
+
+.experiencesDiv > div,
+.educationsDiv > div,
+.certificationsDiv > div {
+  border-bottom: #ff9f29 solid 1px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+.experiencesDiv :last-child,
+.educationsDiv :last-child,
+.certificationsDiv :last-child {
+  border: none;
+}
+
+.expAddBtn,
+.eduAddBtn,
+.certAddBtn {
+  border: #ff9f29 solid 1px;
+  border-radius: 5px;
+  background-color: transparent;
+  font-size: 20px;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.expTaskDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+.eduAddBtn,
+.certAddBtn {
+  margin-top: 5px;
+}
+
+.h2Footer {
+  align-self: center;
+  color: #ff9f29;
+  font-size: 20px;
+}
+
+.footer-img {
+  filter: invert(84%) sepia(33%) saturate(5763%) hue-rotate(338deg)
+    brightness(101%) contrast(101%);
+  width: 25px;
+  height: 25px;
+}
+
+.footer-img:hover {
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(360deg) scale(1.4);
+}
