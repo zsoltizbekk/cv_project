@@ -1,60 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
 
 const editButton = require('../../assets/edit.png');
 const submitButton = require('../../assets/submit.png');
 
-class Photo extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            photoUrlEditable : false,
-            photoUrlEdit : false,
-            photoUrl : this.props.photoUrl,
-        };
+const Photo = (props) => {
+    const [photoUrlEditable, setPhotoUrlEditable] = useState(false);
+    const [photoUrlEdit, setPhotoUrlEdit] = useState(false);
+    const [photoUrl, setPhotoUrl] = useState(props.photoUrl);
+
+    const togglePhotoUrlEditableOn = () => setPhotoUrlEditable(true);
+    const togglePhotoUrlEditableOff = () => setPhotoUrlEditable(false);
+    const togglePhotoUrlEdit = () => setPhotoUrlEdit(!photoUrlEdit)
+    const savePhotoUrl = (e) => setPhotoUrl(e.target.value);
+    const sendPhotoUrl = () => {
+        props.setPhoto(photoUrl);
+        togglePhotoUrlEdit();
     }
-
-    togglePhotoUrlEditableOn = () =>{
-        this.setState(state =>({
-            ...state,
-            photoUrlEditable: true,
-        }));
-    }
-
-    togglePhotoUrlEditableOff = () =>{
-        this.setState(state =>({
-            ...state,
-            photoUrlEditable: false,
-        }));
-    }
-
-    togglePhotoUrlEdit = () => {
-        this.setState(state =>({
-            ...state,
-            photoUrlEdit: !state.photoUrlEdit
-        }));
-    }
-
-    savePhotoUrl = (e) => {
-        this.setState(state =>({
-            ...state,
-            photoUrl : e.target.value
-        }));
-
-    }
-
-    setPhotoUrl =() => {
-        this.props.setPhoto(this.state.photoUrl);
-        this.togglePhotoUrlEdit();
-    }
-
-    render (){
-        return (
-        <div className="photoDiv" onMouseEnter={this.togglePhotoUrlEditableOn} onMouseLeave={this.togglePhotoUrlEditableOff}>
-            {this.state.photoUrlEditable? this.state.photoUrlEdit? <img className = "profilePicture" src={this.props.photoUrl}></img> :<div className="pictureAndButton"><img className = "profilePicture" src={this.props.photoUrl}></img><button onClick={this.togglePhotoUrlEdit}><img className="h1EditLogo" src={editButton} /></button></div> :<img className = "profilePicture" src={this.props.photoUrl}></img>}
-            {this.state.photoUrlEdit? <div className="photoInput"><input className = "h2input"onKeyDown={(e) => {if (e.keyCode == 13) this.setPhotoUrl()}} onChange={this.savePhotoUrl}></input><button onClick={this.setPhotoUrl}><img className="h1SubmitLogo" src={submitButton} /></button></div> : null }
+    return (
+        <div className="photoDiv" onMouseEnter={togglePhotoUrlEditableOn} onMouseLeave={togglePhotoUrlEditableOff}>
+            {photoUrlEditable? photoUrlEdit? <img className = "profilePicture" src={props.photoUrl}></img> :<div className="pictureAndButton"><img className = "profilePicture" src={props.photoUrl}></img><button onClick={togglePhotoUrlEdit}><img className="h1EditLogo" src={editButton} /></button></div> :<img className = "profilePicture" src={props.photoUrl}></img>}
+            {photoUrlEdit? <div className="photoInput"><input className = "h2input"onKeyDown={(e) => {if (e.keyCode == 13) sendPhotoUrl()}} onChange={savePhotoUrl}></input><button onClick={setPhotoUrl}><img className="h1SubmitLogo" src={submitButton} /></button></div> : null }
         </div>
-        )
-    }
+    )
 }
 
 export default Photo;

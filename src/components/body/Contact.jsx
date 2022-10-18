@@ -1,172 +1,99 @@
-import React from "react";
+import React, {useState} from "react";
 
 const editLogo = require('../../assets/edit.png');
 const submitLogo = require('../../assets/submit.png');
 
-class Contact extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            addressEditable : false,
-            addressEdit : false,
-            address : this.props.address,
-            phoneEditable : false,
-            phoneEdit : false,
-            phone : this.props.phone,
-            emailEditable : false,
-            emailEdit: false,
-            email: this.props.email
-        }
-    }
+const Contact = (props) => {
+    const [addressEditable, setAddressEditable] = useState (false);
+    const [addressEdit, setAddressEdit] = useState (false);
+    const [address, setAddress] = useState (props.address);
+
+    const [phoneEditable, setPhoneEditable] = useState (false);
+    const [phoneEdit, setPhoneEdit] = useState (false);
+    const [phone, setPhone] = useState (props.phone);
+
+    const [emailEditable, setEmailEditable] = useState (false);
+    const [emailEdit, setEmailEdit] = useState (false);
+    const [email, setEmail] = useState (props.email);
+
 //ADDRESS
-    toggleAddressEditableOn = () => {
-        this.setState(state => ({
-            ...state,
-            addressEditable: true,
-        }));
+    const toggleAddressEditableOn = () => setAddressEditable(true);
+    const toggleAddressEditableOff = () => setAddressEditable(false);
+    const toggleAddressEdit = () => setAddressEdit(!addressEdit)
+
+    const displayAddressEditable = () => {
+        return <div className="addressEditableDiv"><h3>{props.address}</h3> <button onClick={toggleAddressEdit}><img className="h3EditLogo" src={editLogo}/></button></div>
     }
 
-    toggleAddressEditableOff = () => {
-        this.setState(state => ({
-            ...state,
-            addressEditable: false,
-        }));
+    const displayAddressEdit = () => {
+        return <div className="addressEditDiv"><input onKeyDown={(e) => {if (e.keyCode == 13) sendAddress() }} onChange={saveAddressInput} className="h3input" type="text" /><button onClick={sendAddress}><img className="h3SubmitLogo" src={submitLogo}/></button></div>
     }
+
+    const saveAddressInput = (e) => setAddress(e.target.value)
     
-    toggleAddressEdit = () => {
-        this.setState(state => ({
-            ...state,
-            addressEdit: !state.addressEdit
-        }));
-    }
-
-    displayAddressEditable = () => {
-        return <div className="addressEditableDiv"><h3>{this.props.address}</h3> <button onClick={this.toggleAddressEdit}><img className="h3EditLogo" src={editLogo}/></button></div>
-    }
-
-    displayAddressEdit = () => {
-        return <div className="addressEditDiv"><input onKeyDown={(e) => {if (e.keyCode == 13) this.setAddress() }} onChange={this.saveAddressInput} className="h3input" type="text" /><button onClick={this.setAddress}><img className="h3SubmitLogo" src={submitLogo}/></button></div>
-    }
-
-    saveAddressInput = (e) => {
-        this.setState(state =>({
-            ...state,
-            address: e.target.value
-        }));
-        
-    }
-
-    setAddress = () => {
-        this.props.setAddress(this.state.address);
-        this.toggleAddressEdit();
+    const sendAddress = () => {
+        props.setAddress(address);
+        toggleAddressEdit();
     }
 
 //PHONE
-    togglePhoneEditableOn = () => {
-        this.setState(state => ({
-            ...state,
-            phoneEditable: true,
-        }));
+    const togglePhoneEditableOn = () => setPhoneEditable(true);
+    const togglePhoneEditableOff = () => setPhoneEditable(false);
+    const togglePhoneEdit = () => setPhoneEdit(!phoneEdit)
+
+    const displayPhoneEditable = () => {
+        return <div className="phoneEditableDiv"><h3>{props.phone}</h3> <button onClick={togglePhoneEdit}><img className="h3EditLogo" src={editLogo}/></button></div>
     }
 
-    togglePhoneEditableOff = () => {
-        this.setState(state => ({
-            ...state,
-            phoneEditable: false,
-        }));
+    const displayPhoneEdit = () => {
+        return <div className="phoneEditDiv"><input onKeyDown={(e) => {if (e.keyCode === 13) sendPhone()}} onChange={savePhoneInput} className="h3input" type="text" /><button onClick={sendPhone}><img className="h3SubmitLogo" src={submitLogo}/></button></div>
     }
 
-    togglePhoneEdit = () => {
-        this.setState(state => ({
-            ...state,
-            phoneEdit: !state.phoneEdit
-        }));
-    }
-
-    displayPhoneEditable = () => {
-        return <div className="phoneEditableDiv"><h3>{this.props.phone}</h3> <button onClick={this.togglePhoneEdit}><img className="h3EditLogo" src={editLogo}/></button></div>
-    }
-
-    displayPhoneEdit = () => {
-        return <div className="phoneEditDiv"><input onKeyDown={(e) => {if (e.keyCode === 13) this.setPhone()}} onChange={this.savePhoneInput} className="h3input" type="text" /><button onClick={this.setPhone}><img className="h3SubmitLogo" src={submitLogo}/></button></div>
-    }
-
-    savePhoneInput = (e) => {
-        this.setState(state =>({
-            ...state,
-            phone: e.target.value
-        }));   
-    }
-
-    setPhone = () => {
-        this.props.setPhone(this.state.phone);
-        this.togglePhoneEdit();
+    const savePhoneInput = (e) => setPhone(e.target.value)
+    const sendPhone = () => {
+        props.setPhone(phone);
+        togglePhoneEdit();
     }
 
 //EMAIL
-    toggleEmailEditableOn = () => {
-        this.setState(state => ({
-            ...state,
-            emailEditable: true,
-        }));
+    const toggleEmailEditableOn = () => setEmailEditable(true);
+    const toggleEmailEditableOff = () => setEmailEditable(false);
+    const toggleEmailEdit = () => setEmailEdit(!emailEdit);
+
+    const displayEmailEditable = () => {
+        return <div className="emailEditableDiv"><h3>{props.email}</h3> <button onClick={toggleEmailEdit}><img className="h3EditLogo" src={editLogo}/></button></div>
     }
 
-    toggleEmailEditableOff = () => {
-        this.setState(state => ({
-            ...state,
-            emailEditable: false,
-        }));
+    const displayEmailEdit = () => {
+        return <div className="emailEditDiv"><input onKeyDown={(e) => {if (e.keyCode === 13) sendEmail()}} onChange={saveEmailInput} className="h3input" type="text" /><button onClick={sendEmail}><img className="h3SubmitLogo" src={submitLogo}/></button></div>
     }
 
-    toggleEmailEdit = () => {
-        this.setState(state => ({
-            ...state,
-            emailEdit: !state.emailEdit
-        }));
+    const saveEmailInput = (e) => setEmail(e.target.value);
+
+    const sendEmail = () => {
+        props.setEmail(email);
+        toggleEmailEdit();
     }
 
-    displayEmailEditable = () => {
-        return <div className="emailEditableDiv"><h3>{this.props.email}</h3> <button onClick={this.toggleEmailEdit}><img className="h3EditLogo" src={editLogo}/></button></div>
-    }
-
-    displayEmailEdit = () => {
-        return <div className="emailEditDiv"><input onKeyDown={(e) => {if (e.keyCode === 13) this.setEmail()}} onChange={this.saveEmailInput} className="h3input" type="text" /><button onClick={this.setEmail}><img className="h3SubmitLogo" src={submitLogo}/></button></div>
-    }
-
-    saveEmailInput = (e) => {
-        this.setState(state =>({
-            ...state,
-            email: e.target.value
-        }));  
-    }
-
-    setEmail = () => {
-        this.props.setEmail(this.state.email);
-        this.toggleEmailEdit();
-    }
-
-    render (){
-        return (
+    return (
         <div>
             <h2 className="h2Left">Contact</h2>
-            <div className="addressDiv" onMouseEnter={this.toggleAddressEditableOn} onMouseLeave={this.toggleAddressEditableOff} >
+            <div className="addressDiv" onMouseEnter={toggleAddressEditableOn} onMouseLeave={toggleAddressEditableOff} >
                 <h3 style={{fontFamily: "myfont_regular"}}>Address:</h3> 
-                {this.state.addressEdit ? this.displayAddressEdit() : this.state.addressEditable ? this.displayAddressEditable() : <h3>{this.props.address}</h3>}
+                {addressEdit ? displayAddressEdit() : addressEditable ? displayAddressEditable() : <h3>{props.address}</h3>}
             </div>
 
-            <div className="phoneDiv" onMouseEnter={this.togglePhoneEditableOn} onMouseLeave={this.togglePhoneEditableOff} >
+            <div className="phoneDiv" onMouseEnter={togglePhoneEditableOn} onMouseLeave={togglePhoneEditableOff} >
                 <h3 style={{fontFamily: "myfont_regular"}}>Phone:</h3> 
-                {this.state.phoneEdit ? this.displayPhoneEdit() : this.state.phoneEditable ? this.displayPhoneEditable() : <h3>{this.props.phone}</h3>}
+                {phoneEdit ? displayPhoneEdit() : phoneEditable ? displayPhoneEditable() : <h3>{props.phone}</h3>}
             </div>
 
-            <div className="emailDiv" onMouseEnter={this.toggleEmailEditableOn} onMouseLeave={this.toggleEmailEditableOff} >
+            <div className="emailDiv" onMouseEnter={toggleEmailEditableOn} onMouseLeave={toggleEmailEditableOff} >
                 <h3 style={{fontFamily: "myfont_regular"}}>Email:</h3> 
-                {this.state.emailEdit ? this.displayEmailEdit() : this.state.emailEditable ? this.displayEmailEditable() : <h3>{this.props.email}</h3>}
+                {emailEdit ? displayEmailEdit() : emailEditable ? displayEmailEditable() : <h3>{props.email}</h3>}
             </div>
-
         </div>
-        )
-    }
+    )
 }
 
 export default Contact;

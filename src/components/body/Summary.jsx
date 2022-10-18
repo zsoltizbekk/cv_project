@@ -1,71 +1,39 @@
-import React from "react";
+import React, {useState} from "react";
 
 const editLogo = require('../../assets/edit.png');
 
-class Summary extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            editable : false,
-            edit : false,
-            summaryCopy : this.props.summary,
-        }
+const Summary = (props) => {
+    const [editable, setEditable] = useState (false);
+    const [edit, setEdit] = useState (false);
+    const [summaryCopy, setSummaryCopy] = useState (props.summary);
+
+    const toggleSummaryEditOn = () => setEditable(true);
+    const toggleSummaryEditOff = () => setEditable(false);
+    const toggleEdit = () => setEdit(!edit)
+    const saveSummary = (e) => setSummaryCopy(e.target.value)
+    const sendSummary = () => {
+        props.setSummary(summaryCopy);
+        toggleEdit();
     }
 
-    toggleSummaryEditOn = () => {
-        this.setState(state => ({
-            ...state,
-            editable : true,
-        }));
+    const displayInput = () => {
+        return (<div><textarea className="summaryInput h3input" onKeyDown={(e) => {if (e.keyCode === 13) sendSummary()}} onChange={saveSummary} value={summaryCopy}/></div>);
     }
 
-    toggleSummaryEditOff = () => {
-        this.setState(state => ({
-            ...state,
-            editable : false,
-        }));
+    const displaySummary = () => {
+        return (<div className="summaryContentDiv"><h3>{props.summary}</h3></div>) 
     }
 
-
-    toggleEdit = () => {
-        this.setState(state => ({
-            ...state,
-            edit : !state.edit,
-        }))
-    }
-
-    saveSummary = (e) => {
-        this.setState(state => ({
-            ...state,
-            summaryCopy : e.target.value
-        }))
-    }
-
-    setSummary = () => {
-        this.props.setSummary(this.state.summaryCopy);
-        this.toggleEdit();
-    }
-
-    displayInput = () => {
-        return (<div><textarea className="summaryInput h3input" onKeyDown={(e) => {if (e.keyCode === 13) this.setSummary()}} onChange={this.saveSummary} value={this.state.summaryCopy}/></div>);
-    }
-
-    displaySummary = () => {
-        return (<div className="summaryContentDiv"><h3>{this.props.summary}</h3></div>) 
-    }
-
-    displayEdit = () => {
-        return (<div className="titleEditBtnDiv"><button className="titleEditBtn" onClick={this.toggleEdit}><img className="h2EditLogo"src={editLogo}/></button></div>) 
+    const displayEdit = () => {
+        return (<div className="titleEditBtnDiv"><button className="titleEditBtn" onClick={toggleEdit}><img className="h2EditLogo"src={editLogo}/></button></div>) 
     }
     
-    render (){
-        return (
-        <div className="summaryDiv" onMouseEnter={this.toggleSummaryEditOn} onMouseLeave={this.toggleSummaryEditOff}>
-            {this.state.editable ? <div className="summaryTitleDiv h2Underline"><h2>Summary</h2>{this.displayEdit()}</div> :<div className="summaryTitleDiv h2Underline"><h2>Summary</h2></div>}
-            {this.state.edit ? this.displayInput() : this.displaySummary()}
+    return (
+        <div className="summaryDiv" onMouseEnter={toggleSummaryEditOn} onMouseLeave={toggleSummaryEditOff}>
+            {editable ? <div className="summaryTitleDiv h2Underline"><h2>Summary</h2>{displayEdit()}</div> :<div className="summaryTitleDiv h2Underline"><h2>Summary</h2></div>}
+            {edit ? displayInput() : displaySummary()}
         </div>
-        )
-    }
+    )
 }
 
 export default Summary;

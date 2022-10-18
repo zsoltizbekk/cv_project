@@ -1,47 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import moment from 'moment';
 
 const editLogo = require('../../assets/edit.png');
 const addLogo = require('../../assets/add.png');
 const deleteLogo = require('../../assets/delete.png');
 
-class Education extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            edit : false,
-            editable : false,
-            from : "",
-            to: "",
-            school: "",
-            degree : "",
-        }
-    }
+const Education = (props) => {
+    const [edit, setEdit] = useState (false);
+    const [editable, setEditable] = useState (false);
+    const [from, setFrom] = useState ("");
+    const [to, setTo] = useState ("");
+    const [school, setSchool] = useState ("");
+    const [degree, setDegree] = useState ("");
 
-    toggleEditableOn = () => {
-        this.setState(state =>({
-            ...state,
-            editable : true,
-        }));
-    }
-
-    toggleEditableOff = () => {
-        this.setState(state =>({
-            ...state,
-            editable : false,
-        }));
-    }
-
-    toggleEdit = () => {
-        this.setState(state =>({
-            ...state,
-            edit : !state.edit
-        }));
-    }
-
-    displayEducation = () => {
+    const toggleEditableOn = () => setEditable(true);
+    const toggleEditableOff = () => setEditable(false);
+    const toggleEdit = () => setEdit(!edit)
+    const displayEducation = () => {
         return (
-            this.props.education.map((edu, index) => (
+            props.education.map((edu, index) => (
                 (<div className="educationListDiv" key={index}>
                     <h3 style={{fontFamily: "myfont_regular"}}>{edu.from} - {edu.to}</h3>
                     <h3> <span style={{fontFamily: "myfont_regular"}}>{edu.school} - </span>{edu.degree}</h3>
@@ -50,92 +27,70 @@ class Education extends React.Component {
         );
     }
 
-    displayEducationWithDeleteBtn = () => {
+    const displayEducationWithDeleteBtn = () => {
         return (
-            this.props.education.map((edu, index) => (
+            props.education.map((edu, index) => (
                 (<div className="educationListDiv" key={index}>
                     <h3 style={{fontFamily: "myfont_regular"}}>{edu.from} - {edu.to}</h3>
                     <h3> <span style={{fontFamily: "myfont_regular"}}>{edu.school} - </span>{edu.degree}</h3>
-                    <button className="deleteEduBtn" onClick={()=>{this.deleteEdu(index)}}><img className="h3EditLogo" src={deleteLogo}/></button>
+                    <button className="deleteEduBtn" onClick={()=>{deleteEdu(index)}}><img className="h3EditLogo" src={deleteLogo}/></button>
                 </div>)
             ))
         );
     }
 
-    deleteEdu = (i) => {
-        let temp = this.props.education.filter((edu, index)=> i!==index);
-        this.props.deleteEducation(temp);
+    const deleteEdu = (i) => {
+        let temp = props.education.filter((edu, index)=> i!==index);
+        props.deleteEducation(temp);
     }
-    dispalyInputField = () => {
+    const dispalyInputField = () => {
         return (
             <div className="educationInputFieldDiv">
                 <h2>Add new education:</h2>
                 <h3>From:</h3>
-                <input className="h3input" onChange={this.saveFrom} type="date" />
+                <input className="h3input" onChange={saveFrom} type="date" />
                 <h3>To:</h3>
-                <input className="h3input" onChange={this.saveTo} type="date" />
+                <input className="h3input" onChange={saveTo} type="date" />
                 <h3>School name:</h3>
-                <input className="h3input" onChange={this.saveSchoolName} type="text" />
+                <input className="h3input" onChange={saveSchoolName} type="text" />
                 <h3>Educational level:</h3>
-                <input className="h3input" onChange={this.saveDegree} type="text" />
-                <button className="eduAddBtn" onClick={() => this.setEducation()}>Add</button>
+                <input className="h3input" onChange={saveDegree} type="text" />
+                <button className="eduAddBtn" onClick={() => sendEducation()}>Add</button>
             </div>
         );
     }
 
-    saveFrom = (e) => {
+    const saveFrom = (e) => {
         const newDate = new Date(e.target.value); 
         const newDateString = moment(newDate).format("YYYY-MM-DD");
-        console.log(newDateString)
-        this.setState(state =>({
-            ...state,
-            from : newDateString
-        }));
-        console.log(this.state.from)
+        setFrom(newDateString);
     }
     
-    saveTo = (e) => { 
+    const saveTo = (e) => { 
         const newDate = new Date(e.target.value);
         const newDateString = moment(newDate).format("YYYY-MM-DD");
-        console.log(typeof newDateString)
-        this.setState(state =>({
-            ...state,
-            to : newDateString
-        }));
+        setTo(newDateString);
     }
 
-    saveSchoolName = (e) => {
-        this.setState(state => ({
-            ...state,
-            school : e.target.value,
-        }));
+    const saveSchoolName = (e) => setSchool(e.target.value);
+    const saveDegree = (e) => setDegree(e.target.value);
+
+    const sendEducation = () => {
+        props.setEducation([
+            from, 
+            to, 
+            school, 
+            degree]);
+        toggleEdit();
     }
 
-    saveDegree = (e) => {
-        this.setState(state => ({
-            ...state,
-            degree : e.target.value,
-        }));
-    }
-
-    setEducation = () => {
-        this.props.setEducation([
-            this.state.from, 
-            this.state.to, 
-            this.state.school, 
-            this.state.degree]);
-        this.toggleEdit();
-    }
-
-    render (){
-        return (
-            <div className="educationDiv" onMouseEnter={this.toggleEditableOn} onMouseLeave={this.toggleEditableOff}>
-                {this.state.editable ? <div className="educationTitleDiv h2Underline"><h2>Education</h2><div className="titleEditBtnDiv"><button className="titleEditBtn" onClick={this.toggleEdit}><img className="h2EditLogo" src={editLogo}/></button></div></div> : <div className="educationTitleDiv h2Underline"><h2>Education</h2></div>}
-                {this.state.edit ? <div className="educationsDiv">{this.displayEducationWithDeleteBtn()}</div> : <div className="educationsDiv">{this.displayEducation()}</div>}
-                {this.state.edit ? this.dispalyInputField() : null}
-            </div>
-        )
-    }
+    return (
+        <div className="educationDiv" onMouseEnter={toggleEditableOn} onMouseLeave={toggleEditableOff}>
+            {editable ? <div className="educationTitleDiv h2Underline"><h2>Education</h2><div className="titleEditBtnDiv"><button className="titleEditBtn" onClick={toggleEdit}><img className="h2EditLogo" src={editLogo}/></button></div></div> : <div className="educationTitleDiv h2Underline"><h2>Education</h2></div>}
+            {edit ? <div className="educationsDiv">{displayEducationWithDeleteBtn()}</div> : <div className="educationsDiv">{displayEducation()}</div>}
+            {edit ? dispalyInputField() : null}
+        </div>
+    )
 }
 
 export default Education;

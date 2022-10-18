@@ -1,115 +1,65 @@
-import React from "react";
+import React, {useState} from "react";
 
 const editLogo = require('../../assets/edit.png');
 const submitLogo = require('../../assets/submit.png');
 
-class Name extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            firstNameEditenabled : false,
-            firstNameEdit : false,
-            firstName : this.props.firstName,
-            lastNameEditenabled : false,
-            lastNameEdit : false,
-            lastName : this.props.lastName,
-        }
+const Name = (props) => {
+    
+    const [firstNameEditenabled, setFirstNameEditenabled] = useState (false);
+    const [firstNameEdit, setFirstNameEdit] = useState (false);
+    const [firstName, setFirstName] = useState (props.firstName);
+    const [lastNameEditenabled, setLastNameEditenabled] = useState (false);
+    const [lastNameEdit, setLastNameEdit] = useState (false);
+    const [lastName, setLastName] = useState (props.lastName);
+
+
+    const toggleFirstNameEditEnabled = () => setFirstNameEditenabled(true);
+    const toggleFirstNameEditDisabled = () => setFirstNameEditenabled(false);
+    const toggleLastNameEditEnabled = () => setLastNameEditenabled(true);
+    const toggleLastNameEditDisabled = () => setLastNameEditenabled(false);
+    const toggleFirstNameEdit = () => setFirstNameEdit(!firstNameEdit)
+    const toggleLastNameEdit = () => setLastNameEdit(!lastNameEdit)
+
+    const saveFirstName = (e) => setFirstName(e.target.value);
+    const saveLastName = (e) => setLastName(e.target.value);
+
+    const sendFirstName = () => {
+        props.setFirstName(firstName);
+        toggleFirstNameEdit();
+    }
+
+    const sendLastName = () => {
+        props.setLastName(lastName);
+        toggleLastNameEdit();
     }
     
-    toggleFirstNameEditEnabled = () => {
-        this.setState(state => ({
-            ...state,
-            firstNameEditenabled : true,
-        }))
+    const displayEditFirstName = () =>{
+            return <div className="firstName"><input className="h1input"onKeyDown={(e) => {if (e.keyCode == 13) sendFirstName()}} value={firstName} onChange={saveFirstName}/><button onClick={sendFirstName}> <img className="h1SubmitLogo" src={submitLogo}></img> </button></div>
     }
 
-    toggleFirstNameEditDisabled = () => {
-        this.setState(state => ({
-            ...state,
-            firstNameEditenabled : false,
-        }))
+    const displayEditSecondName = () =>{
+        return <div className="lastName"><input className="h1input" onKeyDown={(e) => {if (e.keyCode == 13) sendLastName()}} value={lastName} onChange={saveLastName}/> <button onClick={sendLastName}> <img className="h1SubmitLogo" src={submitLogo}></img> </button></div>
     }
 
-    toggleLastNameEditEnabled = () => {
-        this.setState(state => ({
-            ...state,
-            lastNameEditenabled : true,
-        }))
-    }
-
-    toggleLastNameEditDisabled = () => {
-        this.setState(state => ({
-            ...state,
-            lastNameEditenabled : false,
-        }))
-    }
-
-    toggleFirstNameEdit = () => {
-        this.setState(state => ({
-            ...state,
-            firstNameEdit: !state.firstNameEdit
-        }))
-    }
-
-    toggleLastNameEdit = () => {
-        this.setState(state => ({
-            ...state,
-            lastNameEdit: !state.lastNameEdit
-        }))
-    }
-
-    saveFirstName = (e) => {
-        this.setState(state => ({
-            ...state,
-            firstName : e.target.value
-        }))
-    }
-
-    saveLastName = (e) => {
-        this.setState(state => ({
-            ...state,
-            lastName : e.target.value
-        }))
-    }
-
-    setFirstName = () => {
-        this.props.setFirstName(this.state.firstName);
-        this.toggleFirstNameEdit();
-    }
-
-    setLastName = () => {
-        this.props.setLastName(this.state.lastName);
-        this.toggleLastNameEdit();
-    }
-    displayEditFirstName =() =>{
-            return <div className="firstName"><input className="h1input"onKeyDown={(e) => {if (e.keyCode == 13) this.setFirstName()}} value={this.state.firstName} onChange={this.saveFirstName}/><button onClick={this.setFirstName}> <img className="h1SubmitLogo" src={submitLogo}></img> </button></div>
-    }
-
-    displayEditSecondName =() =>{
-        return <div className="lastName"><input className="h1input" onKeyDown={(e) => {if (e.keyCode == 13) this.setLastName()}} value={this.state.lastName} onChange={this.saveLastName}/> <button onClick={this.setLastName}> <img className="h1SubmitLogo" src={submitLogo}></img> </button></div>
-    }
-
-    render(){
-        return (
+    return (
         <div className="nameSegment">
-            <div className="firstName" onMouseEnter={this.toggleFirstNameEditEnabled} onMouseLeave={this.toggleFirstNameEditDisabled}>
-                {this.state.firstNameEdit ? this.displayEditFirstName()  : <h1 className="name">{this.props.firstName}</h1>}
-                {this.state.firstNameEditenabled? 
-                this.state.firstNameEdit ? null :
-                <button onClick={this.toggleFirstNameEdit}> <img className="h1EditLogo"src={editLogo} alt="" /> </button> 
+            <div className="firstName" onMouseEnter={toggleFirstNameEditEnabled} onMouseLeave={toggleFirstNameEditDisabled}>
+                {firstNameEdit ? displayEditFirstName()  : <h1 className="name">{props.firstName}</h1>}
+                {firstNameEditenabled? 
+                firstNameEdit ? null :
+                <button onClick={toggleFirstNameEdit}> <img className="h1EditLogo"src={editLogo} alt="" /> </button> 
                 : null} 
                 
             </div>
-            <div className="lastName" onMouseEnter={this.toggleLastNameEditEnabled} onMouseLeave={this.toggleLastNameEditDisabled}>
-            {this.state.lastNameEdit ? this.displayEditSecondName() : <h1 className="name">{this.props.lastName}</h1>}
-                {this.state.lastNameEditenabled? 
-                this.state.lastNameEdit ? null:
-                <button onClick={this.toggleLastNameEdit}> <img className="h1EditLogo"src={editLogo}  alt="" /> </button> 
+            <div className="lastName" onMouseEnter={toggleLastNameEditEnabled} onMouseLeave={toggleLastNameEditDisabled}>
+            {lastNameEdit ? displayEditSecondName() : <h1 className="name">{props.lastName}</h1>}
+                {lastNameEditenabled? 
+                lastNameEdit ? null:
+                <button onClick={toggleLastNameEdit}> <img className="h1EditLogo"src={editLogo}  alt="" /> </button> 
                 : null}
             </div>
         </div>
-        )
-    }
+    )    
 }
 
 export default Name;

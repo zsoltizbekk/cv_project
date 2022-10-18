@@ -1,97 +1,60 @@
-import React from "react";
+import React, {useState} from "react";
 
 const editLogo = require('../../assets/edit.png');
 const deleteLogo = require('../../assets/delete.png');
 
-class Skills extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            editable : false,
-            edit : false,
-            skillCopy : this.props.skill,
-            skill : "",
-        }
+const Skills = (props) => {
+    const [editable, setEditable] = useState (false);
+    const [edit, setEdit] = useState (false);
+    const [skillCopy, setSkillCopy] = useState (props.skill);
+    const [skill, setSkill] = useState("");
+
+    const toggleSkillEditOn = () => setEditable(true);
+    const toggleSkillEditOff = () => setEditable(false);
+    const toggleEdit = () => setEdit(!edit)
+
+    const saveSkill = (e) => setSkill(e.target.value)
+
+    const sendSkill = () => {
+        props.setSkill(skill);
+        setSkill("");
+        toggleEdit();
     }
 
-    toggleSkillEditOn = () => {
-        this.setState(state => ({
-            ...state,
-            editable : true,
-        }));
+    const displayInput = () => {
+        return (<div><input className="skillInput h3input" value={skill} onKeyDown={(e) => {if (e.keyCode === 13) sendSkill()}} onChange={saveSkill} type="text"/><button className="skillAddBtn" onClick={() => sendSkill()}>Add</button></div>);
     }
 
-    toggleSkillEditOff = () => {
-        this.setState(state => ({
-            ...state,
-            editable : false,
-        }));
-    }
-
-    toggleEdit = () => {
-        this.setState(state => ({
-            ...state,
-            edit : !state.edit,
-        }))
-    }
-
-    saveSkill = (e) => {
-        this.setState(state => ({
-            ...state,
-            skill : e.target.value
-        }))
-    }
-
-    setSkill = () => {
-        this.props.setSkill(this.state.skill);
-        this.setState(state =>({
-            ...state,
-            skill : "",
-        }));
-        this.toggleEdit();
-    }
-
-    displayInput = () => {
-        return (<div><input className="skillInput h3input" value={this.state.skill} onKeyDown={(e) => {if (e.keyCode === 13) this.setSkill()}} onChange={this.saveSkill} type="text"/><button className="skillAddBtn" onClick={() => this.setSkill()}>Add</button></div>);
-    }
-
-    displaySkill = () => {
-        return this.props.skill.map((e, index) =>(
+    const displaySkill = () => {
+        return props.skill.map((e, index) =>(
             <li key={index}>{e}</li>
         ))
     }
 
-    displaySkillWithDeleteBtn = () => {
-        return this.props.skill.map((e, index) =>(
-            <li key={index}>{e}<button className="deleteSkillBtn" onClick={()=>this.deleteSkill(index)}><img className="h3EditLogo" src={deleteLogo}/></button></li>
+    const displaySkillWithDeleteBtn = () => {
+        return props.skill.map((e, index) =>(
+            <li key={index}>{e}<button className="deleteSkillBtn" onClick={()=>deleteSkill(index)}><img className="h3EditLogo" src={deleteLogo}/></button></li>
         ))
     }
 
-    displayEdit = () => {
-        return (<div className="titleEditBtnDiv"><button className="titleEditBtn" onClick={this.toggleEdit}><img className="h2EditLogo"src={editLogo}/></button></div>) 
+    const displayEdit = () => {
+        return (<div className="titleEditBtnDiv"><button className="titleEditBtn" onClick={toggleEdit}><img className="h2EditLogo"src={editLogo}/></button></div>) 
     }
 
-    deleteSkill = (delIndex) => {
-        console.log(this.props.skill)
-        let temp = this.props.skill.filter((skill, i) =>i !== delIndex);
-        this.setState(state =>({
-            ...state,
-            skillCopy : temp,
-        }));
-        this.props.deleteSkill(temp);
+    const deleteSkill = (delIndex) => {
+        let temp = props.skill.filter((skill, i) =>i !== delIndex);
+        setSkillCopy(temp)
+        props.deleteSkill(temp);
     }
 
-    render (){
-        return (
-        <div className="skillDiv" onMouseEnter={this.toggleSkillEditOn} onMouseLeave={this.toggleSkillEditOff}>
-            {this.state.editable ? <div className="skillTitleDiv h2Underline"><h2>Skill Highlights</h2>{this.displayEdit()}</div> :<div className="skillTitleDiv h2Underline"><h2>Skill Highlights</h2></div>}
+    return (
+        <div className="skillDiv" onMouseEnter={toggleSkillEditOn} onMouseLeave={toggleSkillEditOff}>
+            {editable ? <div className="skillTitleDiv h2Underline"><h2>Skill Highlights</h2>{displayEdit()}</div> :<div className="skillTitleDiv h2Underline"><h2>Skill Highlights</h2></div>}
             
-            {this.state.editable ? this.displaySkillWithDeleteBtn() : this.displaySkill()}
-            {this.state.edit && this.displayInput()}
-            
+            {editable ? displaySkillWithDeleteBtn() : displaySkill()}
+            {edit && displayInput()}     
         </div>
-        )
-    }
+    )
 }
 
 export default Skills;

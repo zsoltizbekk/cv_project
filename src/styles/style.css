@@ -66,7 +66,7 @@ body {
   gap: 20px;
   height: 40px;
   width: 100%;
-  max-width: 800px;
+  max-width: 810px;
   border-top: #1a4d2e 3px solid;
   background-color: #faf3e3;
   margin: auto;
@@ -121,7 +121,7 @@ body {
   margin: 0;
   margin: auto;
   margin-bottom: 50px;
-  padding-right: 14px;
+  /* padding-right: 14px; */
 }
 
 .cvBotLeft {
